@@ -4,9 +4,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 // Import Components
 import RestaurantsScreen from "./containers/RestaurantsScreen";
+import FavoritesScreen from "./containers/FavoritesScreen";
+import MapScreen from "./containers/MapScreen";
 import Logo from "./containers/Logo";
 
 const Tab = createBottomTabNavigator();
@@ -42,6 +45,52 @@ const App = () => {
                   >
                     <Stack.Screen name="Explorer" title="My App">
                       {() => <RestaurantsScreen />}
+                    </Stack.Screen>
+                  </Stack.Navigator>
+                )}
+              </Tab.Screen>
+
+              <Tab.Screen
+                name="Favorites"
+                options={{
+                  headerShown: false,
+                  tabBarLabel: "Favorites",
+                  tabBarIcon: ({ color, size }) => (
+                    <MaterialIcons
+                      name="favorite-border"
+                      size={size}
+                      color={color}
+                    />
+                  ),
+                }}
+              >
+                {() => (
+                  <Stack.Navigator
+                    screenOptions={{ headerTitle: () => <Logo /> }}
+                  >
+                    <Stack.Screen name="Favorites" title="My Favorites">
+                      {() => <FavoritesScreen />}
+                    </Stack.Screen>
+                  </Stack.Navigator>
+                )}
+              </Tab.Screen>
+
+              <Tab.Screen
+                name="Map"
+                options={{
+                  headerShown: false,
+                  tabBarLabel: "Map",
+                  tabBarIcon: ({ color, size }) => (
+                    <FontAwesome name="map-marker" size={24} color="black" />
+                  ),
+                }}
+              >
+                {() => (
+                  <Stack.Navigator
+                    screenOptions={{ headerTitle: () => <Logo /> }}
+                  >
+                    <Stack.Screen name="Map" title="My Map">
+                      {() => <MapScreen />}
                     </Stack.Screen>
                   </Stack.Navigator>
                 )}
