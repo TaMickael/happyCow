@@ -43,7 +43,7 @@ const App = () => {
                       headerTitle: () => <Logo />,
                     }}
                   >
-                    <Stack.Screen name="Explorer" title="My App">
+                    <Stack.Screen name="explorer" title="My explorer">
                       {() => <RestaurantsScreen />}
                     </Stack.Screen>
                   </Stack.Navigator>
@@ -68,7 +68,7 @@ const App = () => {
                   <Stack.Navigator
                     screenOptions={{ headerTitle: () => <Logo /> }}
                   >
-                    <Stack.Screen name="Favorites" title="My Favorites">
+                    <Stack.Screen name="favorites" title="My Favorites">
                       {() => <FavoritesScreen />}
                     </Stack.Screen>
                   </Stack.Navigator>
@@ -89,7 +89,7 @@ const App = () => {
                   <Stack.Navigator
                     screenOptions={{ headerTitle: () => <Logo /> }}
                   >
-                    <Stack.Screen name="Map" title="My Map">
+                    <Stack.Screen name="map" title="My Map">
                       {() => <MapScreen />}
                     </Stack.Screen>
                   </Stack.Navigator>
