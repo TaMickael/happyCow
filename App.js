@@ -8,6 +8,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 // Import Components
 import RestaurantsScreen from "./containers/RestaurantsScreen";
+import RestaurantScreen from "./containers/RestaurantScreen";
 import FavoritesScreen from "./containers/FavoritesScreen";
 import MapScreen from "./containers/MapScreen";
 import Logo from "./containers/Logo";
@@ -45,6 +46,10 @@ const App = () => {
                   >
                     <Stack.Screen name="explorer" title="My explorer">
                       {() => <RestaurantsScreen />}
+                    </Stack.Screen>
+
+                    <Stack.Screen name="Restaurant" options={{}}>
+                      {() => <RestaurantScreen />}
                     </Stack.Screen>
                   </Stack.Navigator>
                 )}

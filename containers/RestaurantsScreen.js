@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/core";
 import {
   Image,
   Text,
@@ -5,42 +6,50 @@ import {
   FlatList,
   SafeAreaView,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 import DATA from "../restaurants.json";
-import { FontAwesome } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 const stars = (nbEtoile) => {
   const array = [];
   for (let i = 0; i < 5; i++) {
     if (i < nbEtoile) {
-      array.push(<FontAwesome name="star" size={15} color="#FFB100" key={i} />);
+      array.push(<AntDesign name="star" size={15} color="#FFB100" key={i} />);
     } else {
-      array.push(<FontAwesome name="star" size={15} color="gray" key={i} />);
+      array.push(<AntDesign name="star" size={15} color="gray" key={i} />);
     }
   }
   return array;
 };
 
 const RestaurantsScreen = () => {
+  const navigation = useNavigation();
+
   return (
     <FlatList
       data={DATA}
       renderItem={({ item }) => {
         return (
           <SafeAreaView style={styles.container}>
-            <View>
-              <Image style={styles.images} source={{ uri: item.thumbnail }} />
-            </View>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Restaurant", {
+                  Restaurant: item,
+                });
+              }}
+            >
+              <View>
+                <Image style={styles.images} source={{ uri: item.thumbnail }} />
+              </View>
+            </TouchableOpacity>
 
             <View style={styles.containerRight}>
               <View>
                 <Text style={styles.names}>{item.name}</Text>
               </View>
 
-              <View style={styles.stars}>
-                {stars(item.rating)}
-                <Text>{item.reviews}</Text>
-              </View>
+              <View style={styles.stars}>{stars(item.rating)}</View>
 
               <View style={styles.descriptions}>
                 <Text numberOfLines={2}>{item.description}</Text>
@@ -68,6 +77,9 @@ const styles = StyleSheet.create({
   },
   containerRight: {
     margin: 10,
+
+    width: "65%",
+    marginLeft: 5,
   },
   names: {
     fontWeight: "700",
@@ -78,6 +90,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   descriptions: {
-    width: "80%",
+    width: "100%",
   },
 });
