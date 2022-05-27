@@ -5513,6 +5513,11 @@ react-native-gradle-plugin@^0.0.6:
   resolved "https://registry.yarnpkg.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.6.tgz#b61a9234ad2f61430937911003cddd7e15c72b45"
   integrity sha512-eIlgtsmDp1jLC24dRn43hB3kEcZVqx6DUQbR0N1ABXGnMEafm9I3V3dUUeD1vh+Dy5WqijSoEwLNUPLgu5zDMg==
 
+react-native-header-search-bar@^0.1.10:
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/react-native-header-search-bar/-/react-native-header-search-bar-0.1.10.tgz#58136bd1d613f36a71b1257be08e4c95edde6383"
+  integrity sha512-pXTXoBv6aelkuo6SGWeO6/PrserPe8brcpw2xDnRru0QGyyMzhqi+0+0C50/J66VSHEcuco17H8hisNkFS4Dyw==
+
 react-native-iphone-x-helper@^1.0.3:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"

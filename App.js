@@ -19,8 +19,22 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="restaurants">
+      <Stack.Navigator
+        screenOptions={{
+          headerRight: () => (
+            <MaterialIcons name="filter-list" size={24} color="black" />
+          ),
+          headerLeft: () => (
+            <MaterialIcons name="add-location" size={24} color="black" />
+          ),
+        }}
+      >
+        <Stack.Screen
+          options={{
+            headerStyle: { backgroundColor: "#8359c7" },
+          }}
+          name="HappyCow"
+        >
           {() => (
             <Tab.Navigator
               screenOptions={{
@@ -41,7 +55,7 @@ const App = () => {
                 {() => (
                   <Stack.Navigator
                     screenOptions={{
-                      headerTitle: () => <Logo />,
+                      headerShown: false,
                     }}
                   >
                     <Stack.Screen name="explorer" title="My explorer">
@@ -54,7 +68,6 @@ const App = () => {
                   </Stack.Navigator>
                 )}
               </Tab.Screen>
-
               <Tab.Screen
                 name="Favorites"
                 options={{
@@ -71,7 +84,9 @@ const App = () => {
               >
                 {() => (
                   <Stack.Navigator
-                    screenOptions={{ headerTitle: () => <Logo /> }}
+                    screenOptions={{
+                      headerShown: false,
+                    }}
                   >
                     <Stack.Screen name="favorites" title="My Favorites">
                       {() => <FavoritesScreen />}
@@ -79,7 +94,6 @@ const App = () => {
                   </Stack.Navigator>
                 )}
               </Tab.Screen>
-
               <Tab.Screen
                 name="Map"
                 options={{
@@ -92,7 +106,9 @@ const App = () => {
               >
                 {() => (
                   <Stack.Navigator
-                    screenOptions={{ headerTitle: () => <Logo /> }}
+                    screenOptions={{
+                      headerShown: false,
+                    }}
                   >
                     <Stack.Screen name="map" title="My Map">
                       {() => <MapScreen />}
