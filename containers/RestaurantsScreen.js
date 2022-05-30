@@ -13,6 +13,10 @@ import {
 import DATA from "../restaurants.json";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const stars = (nbEtoile) => {
   const array = [];
@@ -54,48 +58,55 @@ const RestaurantsScreen = () => {
   return (
     <View>
       <View style={styles.containerInput}>
-        <View>
+        <View style={styles.iconInput}>
           <FontAwesome5
             style={styles.icon}
             name="search-location"
             size={24}
             color="black"
           />
-        </View>
 
-        <TextInput
-          placeholder="Localisation"
-          textContentType="location"
-          style={styles.input}
-          onChangeText={(text) => {
-            setLocation(text);
-          }}
-          value={location}
-        />
+          <TextInput
+            style={styles.textInput}
+            placeholder="A proximité"
+            textContentType="location"
+            onChangeText={(text) => {
+              setLocation(text);
+            }}
+            value={location}
+          />
+        </View>
       </View>
 
       <View style={styles.platType}>
         <TouchableOpacity
+          style={styles.purple}
           onPress={() => {
             setFilteredData(filterByType("vegan"));
           }}
         >
-          <Text style={[styles.textWeight, styles.purple]}>VEGAN</Text>
+          <Ionicons name="leaf" size={24} color="green" />
+          <Text style={styles.textWeight}>VEGAN</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
+          style={styles.purple}
           onPress={() => {
             setFilteredData(filterByType("vegetarian"));
           }}
         >
-          <Text style={[styles.textWeight, styles.purple]}>VEGETARIAN</Text>
+          <Entypo name="leaf" size={24} color="purple" />
+          <Text style={styles.textWeight}>VEGETARIAN</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
+          style={styles.purple}
           onPress={() => {
             setFilteredData(filterByType("Veg Store"));
           }}
         >
-          <Text style={[styles.textWeight, styles.purple]}>VEG STORE</Text>
+          <MaterialCommunityIcons name="leaf-maple" size={24} color="red" />
+          <Text style={[styles.textWeight]}>VEG STORE</Text>
         </TouchableOpacity>
       </View>
 
@@ -108,7 +119,7 @@ const RestaurantsScreen = () => {
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate("Restaurant", {
-                    Restaurant: item,
+                    restaurantSelected: item,
                   });
                 }}
               >
@@ -127,10 +138,26 @@ const RestaurantsScreen = () => {
 
                 <View style={styles.stars}>
                   {stars(item.rating)}
-                  <View>
-                    <Text>{item.type}</Text>
+                  <View
+                    style={{
+                      borderColor: "green",
+                      backgroundColor: "white",
+                      borderWidth: 2,
+                      borderRadius: 5,
+                      marginLeft: 10,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontWeight: "700",
+                        color: "green",
+                      }}
+                    >
+                      {item.type}
+                    </Text>
                   </View>
                 </View>
+
                 <TouchableOpacity
                   onPress={() => {
                     setDescription(!description);
@@ -155,31 +182,32 @@ export default RestaurantsScreen;
 
 const styles = StyleSheet.create({
   containerInput: {
+    width: "100%",
     backgroundColor: "#8359c7",
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
   },
+  iconInput: {
+    marginTop: 10,
+    marginBottom: 10,
+    width: "95%",
+    flexDirection: "row",
+    backgroundColor: "white",
+    borderRadius: 10,
+  },
   icon: {
     padding: 10,
   },
 
-  input: {
-    flex: 1,
+  textInput: {},
 
-    width: "97%",
-    height: 40,
-    borderColor: "#8359c7",
-    backgroundColor: "white",
-    borderWidth: 1,
-    borderRadius: 10,
-    marginBottom: 8,
-  },
   container: {
     flex: 1,
     flexDirection: "row",
     backgroundColor: "white",
   },
+
   images: {
     width: 120,
     height: 120,
@@ -198,14 +226,18 @@ const styles = StyleSheet.create({
   stars: {
     flexDirection: "row",
     marginBottom: 10,
+    alignItems: "center",
   },
   descriptions: {
     width: "100%",
   },
 
-  textWeight: {
-    fontWeight: "bold",
+  platType: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: 30,
   },
+
   menuDiet: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -213,7 +245,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#6cc551",
     minHeight: 50,
   },
-  purple: {
+  textWeight: {
+    fontWeight: "bold",
     color: "#6f35c0",
+  },
+  purple: {
+    borderWidth: 1,
+    borderColor: "white",
+    borderRadius: 10,
+    padding: 20,
+    backgroundColor: "white",
+
+    alignItems: "center",
+    // justifyContent: "space-between",
   },
 });

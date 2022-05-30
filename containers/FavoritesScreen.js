@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Text, View } from "react-native";
 
 const FavoritesScreen = () => {

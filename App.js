@@ -12,6 +12,7 @@ import RestaurantScreen from "./containers/RestaurantScreen";
 import FavoritesScreen from "./containers/FavoritesScreen";
 import MapScreen from "./containers/MapScreen";
 import Logo from "./containers/Logo";
+import { Entypo } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -62,12 +63,13 @@ const App = () => {
                       {() => <RestaurantsScreen />}
                     </Stack.Screen>
 
-                    <Stack.Screen name="Restaurant" options={{}}>
+                    <Stack.Screen name="Restaurant">
                       {() => <RestaurantScreen />}
                     </Stack.Screen>
                   </Stack.Navigator>
                 )}
               </Tab.Screen>
+
               <Tab.Screen
                 name="Favorites"
                 options={{
@@ -94,6 +96,7 @@ const App = () => {
                   </Stack.Navigator>
                 )}
               </Tab.Screen>
+
               <Tab.Screen
                 name="Map"
                 options={{
