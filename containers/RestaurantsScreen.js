@@ -37,11 +37,12 @@ const RestaurantsScreen = () => {
   const [filteredData, setFilteredData] = useState(DATA);
 
   const filterByType = (diet) => {
+    // console.log(diet);
     // FAIRE UNE BOUCLE POUR PASSER EN REVUE CHAQUE ELEMENT DE NOTRE JSON
     // (DANS LA BOUCLE -DONC A CHAQUE TOUR-) SI LE TYPE DE MON RESTAURANT CORRESPOND À MON FILTRE
     //  ALORS ON PUSH DANS LE TABLEAU INITIALEMENT VIDE
     // APRES LA BOUCLE, METTRE NOTRE TABLEAU DANS FILTEREDdATA (AVEC SETfILTEREDdATA)
-    const arr = [];
+
     let finalTab = [];
     if (diet) {
       for (let i = 0; i < DATA.length; i++) {

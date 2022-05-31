@@ -1,4 +1,5 @@
-import { useRoute } from "@react-navigation/core";
+import { useRoute, useNavigation } from "@react-navigation/core";
+
 import {
   Text,
   View,
@@ -11,14 +12,17 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
+import {
+  AntDesign,
+  MaterialIcons,
+  FontAwesome5,
+  Ionicons,
+  Fontisto,
+} from "@expo/vector-icons";
+
 import MapView from "react-native-maps";
 
-// import data from "../restaurants.json";
-// console.log(data[0].pictures);
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const stars = (nbEtoile) => {
   const array = [];
@@ -32,10 +36,36 @@ const stars = (nbEtoile) => {
   return array;
 };
 
-const RestaurantScreen = (props) => {
+const RestaurantScreen = ({ setFavoris, favoris }) => {
   // console.log(props);
   const { params } = useRoute();
   // console.log(params.restaurantSelected);
+
+  const FavorisFunction = async () => {
+    //await AsyncStorage.removeItem("favoris");
+
+    const arrayFavorisAsync = JSON.parse(await AsyncStorage.getItem("favoris"));
+
+    //   arrayFavorisAsync.filter(
+    //     (item) =>
+    //       item.restaurantSelected.name !== params.restaurantSelected.name
+    //   )
+
+    // arrayFavorisAsync.map((item) => {
+    //   if (item.name !== params.name) {
+    //     arrayFavorisAsync.push(params);
+    //   }
+    // });
+
+    arrayFavorisAsync.push(params);
+
+    // setFavoris(arrayFavoris);
+
+    const newArray = JSON.stringify(arrayFavorisAsync);
+
+    await AsyncStorage.setItem("favoris", newArray);
+    // console.log(await AsyncStorage.getItem("favoris"));
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -61,10 +91,23 @@ const RestaurantScreen = (props) => {
           </View>
 
           <View style={{ padding: 10, backgroundColor: "#8359c7" }}>
-            <View>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
               <Text style={{ fontSize: 30, color: "white" }}>
                 {params.restaurantSelected.name}
               </Text>
+
+              <Fontisto
+                onPress={FavorisFunction}
+                name="favorite"
+                size={24}
+                color="white"
+              />
             </View>
 
             <View style={{ flexDirection: "row", alignItems: "center" }}>

@@ -1,8 +1,10 @@
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -11,23 +13,27 @@ import RestaurantsScreen from "./containers/RestaurantsScreen";
 import RestaurantScreen from "./containers/RestaurantScreen";
 import FavoritesScreen from "./containers/FavoritesScreen";
 import MapScreen from "./containers/MapScreen";
-import Logo from "./containers/Logo";
-import { Entypo } from "@expo/vector-icons";
+import { Octicons, AntDesign } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+  const [favoris, setFavoris] = useState([]);
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
           headerRight: () => (
-            <MaterialIcons name="filter-list" size={24} color="black" />
+            <AntDesign
+              onPress={() => {}}
+              name="adduser"
+              size={24}
+              color="black"
+            />
           ),
-          headerLeft: () => (
-            <MaterialIcons name="add-location" size={24} color="black" />
-          ),
+          headerLeft: () => <Octicons name="sign-in" size={24} color="black" />,
         }}
       >
         <Stack.Screen
@@ -60,11 +66,16 @@ const App = () => {
                     }}
                   >
                     <Stack.Screen name="explorer" title="My explorer">
-                      {() => <RestaurantsScreen />}
+                      {() => <RestaurantsScreen favoris={favoris} />}
                     </Stack.Screen>
 
                     <Stack.Screen name="Restaurant">
-                      {() => <RestaurantScreen />}
+                      {() => (
+                        <RestaurantScreen
+                          setFavoris={setFavoris}
+                          favoris={favoris}
+                        />
+                      )}
                     </Stack.Screen>
                   </Stack.Navigator>
                 )}
@@ -91,7 +102,12 @@ const App = () => {
                     }}
                   >
                     <Stack.Screen name="favorites" title="My Favorites">
-                      {() => <FavoritesScreen />}
+                      {() => (
+                        <FavoritesScreen
+                          setFavoris={setFavoris}
+                          favoris={favoris}
+                        />
+                      )}
                     </Stack.Screen>
                   </Stack.Navigator>
                 )}
