@@ -1,10 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -13,12 +12,14 @@ import RestaurantsScreen from "./containers/RestaurantsScreen";
 import RestaurantScreen from "./containers/RestaurantScreen";
 import FavoritesScreen from "./containers/FavoritesScreen";
 import MapScreen from "./containers/MapScreen";
+import Signup from "./containers/Signup";
 import { Octicons, AntDesign } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+  const navigation = useNavigation();
   const [favoris, setFavoris] = useState([]);
   return (
     <NavigationContainer>
@@ -26,7 +27,9 @@ const App = () => {
         screenOptions={{
           headerRight: () => (
             <AntDesign
-              onPress={() => {}}
+              onPress={() => {
+                navigation.navigate("Signup");
+              }}
               name="adduser"
               size={24}
               color="black"
