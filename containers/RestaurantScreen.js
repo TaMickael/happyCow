@@ -44,26 +44,17 @@ const RestaurantScreen = ({ setFavoris, favoris }) => {
   const FavorisFunction = async () => {
     //await AsyncStorage.removeItem("favoris");
 
-    const arrayFavorisAsync = JSON.parse(await AsyncStorage.getItem("favoris"));
-
-    //   arrayFavorisAsync.filter(
-    //     (item) =>
-    //       item.restaurantSelected.name !== params.restaurantSelected.name
-    //   )
-
-    // arrayFavorisAsync.map((item) => {
-    //   if (item.name !== params.name) {
-    //     arrayFavorisAsync.push(params);
-    //   }
-    // });
-
-    arrayFavorisAsync.push(params);
-
-    // setFavoris(arrayFavoris);
-
-    const newArray = JSON.stringify(arrayFavorisAsync);
-
-    await AsyncStorage.setItem("favoris", newArray);
+    const arrayFavoris = await AsyncStorage.getItem("favoris"); // Récup l'Async
+    if (!arrayFavoris) {
+      newArray = [params];
+      const stringifiedArray = JSON.stringify(newArray); // Stringifié le nouveau Tableau
+      await AsyncStorage.setItem("favoris", stringifiedArray); // Renvoyez dans l'Async qui est "favoris"
+    } else {
+      const parsedFav = JSON.parse(arrayFavoris); // Parser les données Récupérer dans l'Async
+      parsedFav.push(params); // Push les données (params)
+      const stringifiedArray = JSON.stringify(parsedFav); // Stringifié le parse
+      await AsyncStorage.setItem("favoris", stringifiedArray); // Renvoyez les données parsé dans "favoris"
+    }
     // console.log(await AsyncStorage.getItem("favoris"));
   };
 
@@ -187,9 +178,10 @@ const RestaurantScreen = ({ setFavoris, favoris }) => {
               }}
             >
               <MapView.Marker
+                key={params.restaurantSelected}
                 coordinate={{
-                  latitude: params.restaurantSelected.location[1],
-                  longitude: params.restaurantSelected.location[0],
+                  latitude: params.restaurantSelected.location.lat,
+                  longitude: params.restaurantSelected.location.lng,
                 }}
               />
             </MapView>

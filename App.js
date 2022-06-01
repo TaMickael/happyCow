@@ -14,7 +14,6 @@ import RestaurantScreen from "./containers/RestaurantScreen";
 import FavoritesScreen from "./containers/FavoritesScreen";
 import MapScreen from "./containers/MapScreen";
 import { Octicons, AntDesign } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -66,7 +65,12 @@ const App = () => {
                     }}
                   >
                     <Stack.Screen name="explorer" title="My explorer">
-                      {() => <RestaurantsScreen favoris={favoris} />}
+                      {() => (
+                        <RestaurantsScreen
+                          favoris={favoris}
+                          setFavoris={setFavoris}
+                        />
+                      )}
                     </Stack.Screen>
 
                     <Stack.Screen name="Restaurant">
@@ -84,7 +88,6 @@ const App = () => {
               <Tab.Screen
                 name="Favorites"
                 options={{
-                  headerShown: false,
                   tabBarLabel: "Favorites",
                   tabBarIcon: ({ color, size }) => (
                     <MaterialIcons
@@ -96,11 +99,7 @@ const App = () => {
                 }}
               >
                 {() => (
-                  <Stack.Navigator
-                    screenOptions={{
-                      headerShown: false,
-                    }}
-                  >
+                  <Stack.Navigator screenOptions={{ headerShown: false }}>
                     <Stack.Screen name="favorites" title="My Favorites">
                       {() => (
                         <FavoritesScreen
