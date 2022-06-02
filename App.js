@@ -1,48 +1,51 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, Octicons } from "@expo/vector-icons";
 
 // Import Components
 import RestaurantsScreen from "./containers/RestaurantsScreen";
 import RestaurantScreen from "./containers/RestaurantScreen";
 import FavoritesScreen from "./containers/FavoritesScreen";
 import MapScreen from "./containers/MapScreen";
+import Signin from "./containers/Signin";
 import Signup from "./containers/Signup";
-import { Octicons, AntDesign } from "@expo/vector-icons";
+
+import Headers from "./containers/Headers";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const navigation = useNavigation();
+  const [restaurants, setRestaurants] = useState("");
+  const [restaurant, setRestaurant] = useState("");
   const [favoris, setFavoris] = useState([]);
+  const [headers, setHeaders] = useState("");
+  const [signin, setSignin] = useState("");
+  const [signup, setSignup] = useState("");
+
   return (
     <NavigationContainer>
       <Stack.Navigator
-        screenOptions={{
-          headerRight: () => (
-            <AntDesign
-              onPress={() => {
-                navigation.navigate("Signup");
-              }}
-              name="adduser"
-              size={24}
-              color="black"
-            />
+        name="HappyCow"
+        screenOptions={() => ({
+          headerTitle: () => (
+            <Headers headers={headers} setHeaders={setHeaders} />
           ),
-          headerLeft: () => <Octicons name="sign-in" size={24} color="black" />,
-        }}
+
+          headerStyle: { backgroundColor: "#8359c7" },
+        })}
       >
         <Stack.Screen
-          options={{
-            headerStyle: { backgroundColor: "#8359c7" },
-          }}
-          name="HappyCow"
+          name="tab"
+          // options={{
+          //   headerShown: false,
+          // }}
         >
           {() => (
             <Tab.Navigator
@@ -70,8 +73,8 @@ const App = () => {
                     <Stack.Screen name="explorer" title="My explorer">
                       {() => (
                         <RestaurantsScreen
-                          favoris={favoris}
-                          setFavoris={setFavoris}
+                          restaurants={restaurants}
+                          setRestaurants={setRestaurants}
                         />
                       )}
                     </Stack.Screen>
@@ -79,10 +82,17 @@ const App = () => {
                     <Stack.Screen name="Restaurant">
                       {() => (
                         <RestaurantScreen
-                          setFavoris={setFavoris}
-                          favoris={favoris}
+                          setRestaurant={setRestaurant}
+                          restaurant={restaurant}
                         />
                       )}
+                    </Stack.Screen>
+                    <Stack.Screen name="Signin" title="My SiginScreen">
+                      {() => <Signin signin={signin} setSignin={setSignin} />}
+                    </Stack.Screen>
+
+                    <Stack.Screen option name="Signup" title="My SignupScreen">
+                      {() => <Signup signup={signup} setSignup={setSignup} />}
                     </Stack.Screen>
                   </Stack.Navigator>
                 )}

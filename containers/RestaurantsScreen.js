@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import {
   Image,
@@ -16,7 +16,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, Octicons } from "@expo/vector-icons";
 
 const stars = (nbEtoile) => {
   const array = [];
@@ -33,7 +33,7 @@ const stars = (nbEtoile) => {
 const RestaurantsScreen = () => {
   const navigation = useNavigation();
   const [description, setDescription] = useState(false);
-  const [location, setLocation] = useState();
+  const [name, setName] = useState();
   const [filteredData, setFilteredData] = useState(DATA);
 
   const filterByType = (diet) => {
@@ -50,6 +50,30 @@ const RestaurantsScreen = () => {
           finalTab.push(DATA[i]);
         }
       }
+      return finalTab;
+    } else if (name) {
+      for (let i = 0; i < DATA.length; i++) {
+        if (DATA[i].name.indexOf(name) !== -1) {
+          finalTab.push(DATA[i]);
+        }
+      }
+
+      return finalTab;
+    } else {
+      return DATA;
+    }
+  };
+
+  const searchByName = () => {
+    let finalTab = [];
+    if (name) {
+      for (let i = 0; i < DATA.length; i++) {
+        if (DATA[i].name.indexOf(name) !== -1) {
+          finalTab.push(DATA[i]);
+        }
+      }
+
+      setFilteredData(finalTab);
       return finalTab;
     } else {
       return DATA;
@@ -69,12 +93,13 @@ const RestaurantsScreen = () => {
 
           <TextInput
             style={styles.textInput}
-            placeholder="A proximité"
+            placeholder="Search"
             textContentType="location"
             onChangeText={(text) => {
-              setLocation(text);
+              setName(text);
+              searchByName();
             }}
-            value={location}
+            value={name}
           />
         </View>
       </View>
